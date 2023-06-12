@@ -22,7 +22,7 @@ if ($result) {
     if (pg_affected_rows($result) > 0) {
         echo "El punto $id ha sido eliminado.";
     } else {
-        echo "El punto con identificación $id no existe.";
+        echo "El punto con $id no existe.";
     }
 } else {
     echo "Error al ejecutar la consulta.";
