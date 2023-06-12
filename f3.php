@@ -43,7 +43,6 @@
             border-radius: 5px;
             z-index: 9999;
         }
-
         #form input {
             margin-bottom: 10px;
         }
@@ -189,8 +188,8 @@
                     <div style="margin-top:20px;">
                     <h1>Sitios de interes</h1>
                     <!-- formulario para agregar datos  -->
-                    <button id="btnAgregarDatos">Agregar Datos</button>
-                    <form action="bdg/agregar.php" method="POST" style="width: 100%; margin: 0 auto;">
+                    
+                    <form action="bdg/editar.php" method="POST" style="width: 100%; margin: 0 auto;">
                         <fieldset>
                             <legend class="text-center text-success"> Datos del sitio </legend>
                             <div class="form-group">
@@ -237,15 +236,14 @@
                         <label for="id">ID del Punto:</label>
                         <input type="text" id="id" required>
                         <button id="btnEliminar">Eliminar</button>
-                        
-                    </div>
-                   
+
+                </div>
             </div>
 
 
             <div class="leaflet-sidebar-pane" id="agregar">
                 <h1 class="leaflet-sidebar-header">Messages<span class="leaflet-sidebar-close"><i class="fa fa-caret-left"></i></span></h1>
-                
+                <button id="btnAgregarDatos">Agregar Datos</button>
             </div>
         </div>
     </div>
@@ -267,10 +265,7 @@
         </form>
     </div>
 
-
-    <div id="map">
-
-    </div>
+    <div id="map"></div>
     <script src="https://unpkg.com/leaflet@0.7.2/dist/leaflet.js"></script>
     <script src="sidebar/js/leaflet-sidebar.js"></script>
     
@@ -283,13 +278,12 @@
             maxZoom: 18,
             attribution: 'Map data &copy; OpenStreetMap contributors'
         }).addTo(map);
-        
-        // create the sidebar instance and add it to the map
-        var sidebar = L.control.sidebar({ container: 'sidebar'}).addTo(map);
 
+        // create the sidebar instance and add it to the map
+        var sidebar = L.control.sidebar({ container: 'sidebar' 
+        }).addTo(map);
         var clickedLatLng;
         var marker;
-
         // Manejador de eventos para el clic en el mapa
         function onMapClick(e) {
             if (marker){
@@ -314,6 +308,7 @@
                 map.removeLayer(marker);
             }
         }
+        
         // Manejador de eventos para enviar el formulario
         $('#pointForm').submit(function(e) {
             e.preventDefault();
@@ -330,15 +325,9 @@
                 }
             });
         });
-
         // Agregar un evento de clic al botón del sidebar
         var btnAgregarDatos = document.getElementById('btnAgregarDatos');
         btnAgregarDatos.addEventListener('click', openForm);
-
-
-
-        
-
         // add panels dynamically to the sidebar
         sidebar
             .addPanel({
@@ -350,17 +339,13 @@
                 id:   'eliminar',
                 title: 'Eliminar registro',
                 tab:  '<i class="fa fa-cog fa-fw"></i>'
-                
             })
             // add a tab with a click callback, initially disabled
             .addPanel({
                 id:   'agregar',
                 tab:  '<i class="fa fa-envelope"></i>',
                 title: 'Agregar registro',
-                button: function() {
-                    document.getElementById('btnAgregarDato').click()
-                },
-                disabled: false,
+                
             })
 
         // be notified when a panel is opened
@@ -374,6 +359,16 @@
             }
         });
 
+        var userid = 0
+        function addUser() {
+            sidebar.addPanel({
+                id:   'user' + userid++,
+                tab:  '<i class="fa fa-user"></i>',
+                title: 'User Profile ' + userid,
+                pane: '<p>user ipsum dolor sit amet</p>',
+            });
+        }
+        
     </script>
 </body>
 </html>

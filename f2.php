@@ -217,7 +217,6 @@
                         <input type="text" id="id" required>
                         <button id="btnEliminar">Eliminar</button>
 
-
                 </div>
             </div>
 
