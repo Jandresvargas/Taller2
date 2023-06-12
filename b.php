@@ -66,8 +66,8 @@
 
 
 
-    <link rel="stylesheet" href="slidemenu/L.Control.SlideMenu.css">
-    <script src="slidemenu/L.Control.SlideMenu.js"></script>
+    <link rel="stylesheet" href="sidebar/">
+    <script src="sidemenu/L.Control.SlideMenu.js"></script>
 
 
 
@@ -113,7 +113,7 @@
 
             <!-- Tabla slide  -->
             <script>
-              
+            var slide = 
             <table class="table table-striped table-bordered" id="table1">
 			  	<thead class="thead-dark">
 				    <tr>
@@ -133,13 +133,10 @@
 		while($mostrar=pg_fetch_array($result)){
 		 ?>
 				    <tr>
-				     <th  scope="row"><?php echo $mostrar['gid'] ?></th>
-				      <td contenteditable="true"> <?php echo $mostrar['barrio_ate'] ?></td>
-				      <td contenteditable="true"><?php echo $mostrar['zona'] ?> </td>
-				      <td contenteditable="true"><?php echo $mostrar['genero'] ?></td>
-					  <td contenteditable="true"><?php echo $mostrar['modalidad'] ?></td>
-					  <td contenteditable="true"><?php echo $mostrar['armas_medi'] ?></td>
-					  <td contenteditable="true"><?php echo $mostrar['dia_semana'] ?></td>
+				     <th  scope="row"><?php echo $mostrar['id'] ?></th>
+				      <td contenteditable="true"> <?php echo $mostrar['nombre'] ?></td>
+				      <td contenteditable="true"><?php echo $mostrar['tipo'] ?> </td>
+
 					</tr>
 					<?php 
 					}
