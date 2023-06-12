@@ -1,7 +1,7 @@
 <?php
 	//configuracion de la conexion a la gdb
 	
-	include('configuracion.php');
+	include('conect.php');
 
 	session_start();
 

@@ -2,7 +2,6 @@
 <html lang="en">
 
 <head>
-
 <meta charset="utf-8">
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport"
@@ -28,22 +27,11 @@
 	.botones2{
 		background-color: LightSalmon;
 	}
-  
-	
 </style>
 
 </head>
 
 <body>
-<div id="jquery-script-menu">
-<div class="jquery-script-center">
-<div id="carbon-block"></div>
-<div class="jquery-script-ads"><script type="text/javascript"><!--
-
-</script>
-<div class="jquery-script-clear"></div>
-</div>
-</div>
     <main role="main" class="container" style="margin-top:150px;">
 
     	<div style="margin-top:20px;">
@@ -65,7 +53,6 @@
 				while($mostrar=pg_fetch_array($result)){
 		 		?>
 				    <tr>
-					
 				     <th  scope="row"><?php echo $mostrar['id'] ?></th>
 				      <td> <?php echo $mostrar['nombre'] ?></td>
 				      <td><?php echo $mostrar['tipo'] ?></td>
@@ -78,15 +65,10 @@
 
 			  	</tbody>
 			</table>
-		</div>
-
-
-    	
-
-    </main><!-- /.container -->
-
+    </main>
+	
+	<!-- /.container -->
 	<script>
-
 	function del(b) 
 		{	
 			$.post("base_de_datos/ejemplo2.php",
