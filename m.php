@@ -57,7 +57,7 @@
     <div id="map">
         <div id="sidebar" >
             <h2>Eliminar Punto</h2>
-                <label for="id">ID del Punto:</label>
+                <label for="ilbl">ID del Punto:</label>
                 <input type="text" id="id" required>
                 <button id="btnEliminar">Eliminar</button>
         </div>
