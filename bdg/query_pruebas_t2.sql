@@ -10,7 +10,11 @@ CREATE TABLE sitios_interes (
 		);
 		
 SELECT * FROM sitios_interes
+-- Eliminar tabla
 DROP TABLE sitios_interes
+-- Eliminar registros (solo usar para pruebas)
+DELETE FROM sitios_interes WHERE id = '1544'
+SELECT count FROM sitios_interes
 
 -- Insertar valores o puntos a la tabla 
 INSERT INTO sitios_interes VALUES (1154,'Estación Naranja Bar','Bar',ST_SetSRID(ST_MakePoint(-76.5287304,3.3665456), 4326));

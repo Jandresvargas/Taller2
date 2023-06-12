@@ -1,5 +1,4 @@
 <?php 
-
 	define("PG_DB"  , "t2_pruebas");
 	define("PG_HOST", "localhost");
 	define("PG_USER", "postgres");
@@ -12,8 +11,6 @@
         exit;
     }
  ?>
-
-
 <!DOCTYPE html>
 <html>
 <head>
@@ -29,12 +26,11 @@
 
     <link rel="stylesheet" href="sidebar/css/leaflet-sidebar.css" />
 
-    <style>
-        body {
-            padding: 0;
-            margin: 0;
-        }
 
+    <style>
+        #map {
+            height: 600px;
+        }
         html, body, #map {
             height: 100%;
             font: 10pt "Helvetica Neue", Arial, Helvetica, sans-serif;
@@ -45,12 +41,47 @@
             text-align: justify;
             color: #AAA;
         }
+        #sidebar {
+            position: absolute;
+            top: 10px;
+            left: 10px;
+            background-color: white;
+            padding: 10px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            z-index: 9999;
+        }
     </style>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script>
+        $(document).ready(function() {
+            // Función para enviar la solicitud de eliminación del punto
+            function eliminarPunto(id) {
+                $.ajax({
+                    url: 'bdg/eliminar.php',
+                    type: 'POST',
+                    data: { id: id },
+                    success: function(response) {
+                        alert(response);
+                    },
+                    error: function() {
+                        alert('Error al eliminar el punto.');
+                    }
+                });
+            }
+
+            // Manejador de eventos para el botón de eliminación
+            $('#btnEliminar').on('click', function() {
+                var id = $('#id').val();
+                eliminarPunto(id);
+            });
+        });
+    </script>
+
 </head>
 <body>
     <!-- optionally define the sidebar content via HTML markup -->
     <div id="sidebar" class="leaflet-sidebar collapsed">
-
         <!-- nav tabs -->
         <div class="leaflet-sidebar-tabs">
             <!-- top aligned tabs -->
@@ -128,7 +159,7 @@
             <!-- EDITAR -->
             <div class="leaflet-sidebar-pane" id="editar">
                 <h1 class="leaflet-sidebar-header">
-                    Editar datos
+                    Aaaaaaaaaaaaaaaaaaaaaaaahhhhhhhhhhhhh
                     <span class="leaflet-sidebar-close"><i class="fa fa-caret-left"></i></span>
                 </h1>
                 <p>
@@ -138,7 +169,7 @@
                     <div style="margin-top:20px;">
                     <h1>Sitios de interes</h1>
                     <!-- formulario para agregar datos  -->
-                    <form action="agregar.php" method="POST" style="width: 100%; margin: 0 auto;">
+                    <form action="bdg/editar.php" method="POST" style="width: 100%; margin: 0 auto;">
                         <fieldset>
                             <legend class="text-center text-success"> Datos del sitio </legend>
                             <div class="form-group">
@@ -166,39 +197,14 @@
                                 <input type="submit" class="btn btn-success form-control" name="guardar">
                             </div>
                         </fieldset>
-                
+                    </form>
                     <br>
-                        <table class="table table-striped table-bordered" id="table1" style="border: 1px;">
-                        <thead class="thead-dark">
-                            <tr>
-                            <th scope="col">Id</th>
-                            <th scope="col">Nombre</th>
-                            <th scope="col">Tipo</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                        <?php 
-                        $sql="SELECT * from sitios_interes";
-                        $result=pg_query($conexion,$sql);
-                        while($mostrar=pg_fetch_array($result)){
-                        ?>
-                            <tr>
-                            <th  scope="row"><?php echo $mostrar['id'] ?></th>
-                            <td> <?php echo $mostrar['nombre'] ?></td>
-                            <td><?php echo $mostrar['tipo'] ?> </td>
-                            </tr>
-                            <?php 
-                            }
-                            ?>
-                        </tbody>
-                    </table>
                 </div>
             </div>
             <!-- AGREGAR Y ELIMINAR -->
-
-            <div class="leaflet-sidebar-pane" id="agregar">
+            <div class="leaflet-sidebar-pane" id="eliminar">
                 <h1 class="leaflet-sidebar-header">
-                    Editar datos
+                    Agregar o eliminar
                     <span class="leaflet-sidebar-close"><i class="fa fa-caret-left"></i></span>
                 </h1>
                 <p>
@@ -206,33 +212,12 @@
                 </p>
                     <!-- Agrega la tabla dentro del panel -->
                     <div style="margin-top:20px;">
-                    <h1>Sitios de interes</h1>
-                    <button onclick="sidebar.disablePanel('mail')">Buscar</button>
-                    <button onclick="addUser()">Eliminar</button>
-                        <table class="table table-striped table-bordered" id="table1" style="border: 1px;">
-                        <thead class="thead-dark">
-                            <tr>
-                            <th scope="col">Id</th>
-                            <th scope="col">Nombre</th>
-                            <th scope="col">Tipo</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                        <?php 
-                        $sql="SELECT * from sitios_interes";
-                        $result=pg_query($conexion,$sql);
-                        while($mostrar=pg_fetch_array($result)){
-                        ?>
-                            <tr>
-                            <th  scope="row"><?php echo $mostrar['id'] ?></th>
-                            <td> <?php echo $mostrar['nombre'] ?></td>
-                            <td><?php echo $mostrar['tipo'] ?> </td>
-                            </tr>
-                            <?php 
-                            }
-                            ?>
-                        </tbody>
-                    </table>
+                    <h1>Eliminar Dato</h1>
+                        <label for="id">ID del Punto:</label>
+                        <input type="text" id="id" required>
+                        <button id="btnEliminar">Eliminar</button>
+
+
                 </div>
             </div>
 
@@ -249,6 +234,7 @@
     <div id="map"></div>
     <script src="https://unpkg.com/leaflet@0.7.2/dist/leaflet.js"></script>
     <script src="sidebar/js/leaflet-sidebar.js"></script>
+    
 
     <script>
         // standard leaflet map setup
@@ -261,24 +247,25 @@
 
         // create the sidebar instance and add it to the map
         var sidebar = L.control.sidebar({ container: 'sidebar' 
-        })
-            .addTo(map);
-
+        }).addTo(map);
+        
         // add panels dynamically to the sidebar
         sidebar
             .addPanel({
                 id:   'editar',
+                title: 'Editar registro',
                 tab:  '<i class="fa fa-pencil fa-fw"></i>'
             })
             .addPanel({
-                id:   'agregar',
+                id:   'eliminar',
+                title: 'Eliminar registro',
                 tab:  '<i class="fa fa-cog fa-fw"></i>'
             })
             // add a tab with a click callback, initially disabled
             .addPanel({
                 id:   'mail',
                 tab:  '<i class="fa fa-envelope"></i>',
-                title: 'Messages',
+                title: 'Agregar registro',
                 button: function() { alert('opened via JS callback') },
                 disabled: false,
             })
