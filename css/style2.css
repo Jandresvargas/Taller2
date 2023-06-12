@@ -1,0 +1,100 @@
+
+body,html {
+  margin: 0;
+  background: #78909C
+  }
+  
+  .legend {
+    background-color: #e9eacb;
+    padding: 5px;
+    opacity: 0.8;
+    border: 10px;
+    height: 150px;
+    width: 200px;
+    position: 'bottomleft'
+    }
+
+  .cajon {
+    width: 1150px;
+    height:600px;
+    margin: calc(50vh - 190px) auto;
+    box-shadow: 0 0 40px -10px black;
+    background: rgba(0, 0, 0, 0.568);
+    font-family: 'Montserrat', sans-serif;
+
+  }
+  #map {
+    width: 75%;
+    height: 600px;
+    display: inline-block
+  }
+  
+  .map-c {
+    float: right;
+    width: 25%;
+    height: 100%;
+    padding: 5px;
+    box-sizing: border-box;
+    background-image: url("img/galeria4.JPG");
+    background-size: cover;
+  }
+  
+  
+  h1 {
+    margin: 0;
+    font-weight: normal;
+    color: rgb(2, 2, 41);
+    font-size: 20px;
+    position: 'center';
+    font-family: 'Montserrat', sans-serif
+  }
+  p {
+    font-size: 13px;
+    margin-top: 20px;
+    margin-bottom: 30px;
+    font-family: "Microsoft JhengHei", sans-serif;
+  }
+  
+  .det {
+    font-size: 13px;
+    margin-bottom: 15px;
+    font-family: monospace;
+  }
+  
+  i {
+    float: left;
+    font-size: 18px !important;
+    margin: 0 8px 0 0
+  }
+  
+  
+  
+  @media only screen and (max-width: 720px) {
+    .texto {
+      height: 500px;
+      margin: calc(50vh - 210px) auto;
+      overflow: hidden
+    }
+
+    #map { height: 30%;
+      box-shadow: 5px 5px 5px #868be6;
+      display: inline-block}
+
+    .map-c {
+      float: right;
+      width: 30%;
+    }
+  }
+  
+  @media only screen and (max-width: 460px) {
+    p {
+      display: none
+    }
+    h1 {
+      margin-bottom:20px
+    }
+
+    .det {
+      margin-bottom: 9px
+    }
+  }
