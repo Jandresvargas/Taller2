@@ -8,6 +8,8 @@ define("PG_PORT", "5433");
 $id = $_POST['id'];
 $nombre = $_POST['nombre'];
 $tipo = $_POST['tipo'];
+$latitude = $_POST['latitude'];
+$longitude = $_POST['longitude'];
 
 $conn = pg_connect("dbname=".PG_DB." host=".PG_HOST." user=".PG_USER ." password=".PG_PSWD." port=".PG_PORT."");
 if (!$conn) {
@@ -15,14 +17,14 @@ if (!$conn) {
    exit;
 }
 
-$query = "UPDATE sitios_interes SET nombre='$nombre', tipo='$tipo' WHERE id='$id'";
+$query = "UPDATE sitios_interes SET nombre='$nombre',tipo='$tipo', geom=ST_SetSRID(ST_MakePoint($longitude, $latitude), 4326) WHERE id='$id'";
 $result = pg_query($conn, $query);
 if (!$result) {
-   echo "Error al actualizar el registro.";
+   echo "<script>alert('Error al actualizar el registro.');</script>";
    exit;
 }
 
-echo "Registro actualizado correctamente.";
+echo "<script>alert('Actualización exitosa.'); window.location.href = '../f5.php'</script>";
 
 pg_close($conn);
 ?>

@@ -63,7 +63,11 @@
           echo "</tr>";
 
           // Agregar el marcador al array
+
         }
+
+        // Cerrar la conexión a la base de datos
+
       ?>
     </tbody>
   </table>
@@ -78,17 +82,18 @@
     }).addTo(map);
 
     var currentMarker;
+
     // Agregar los marcadores al mapa
     var markersLayer = L.layerGroup([<?php echo implode(',', $markers); ?>]);
     markersLayer.addTo(map).bindPopup('nombre');
-
+    
     function zoomToLocation(lat, lng, nombre) {
       if (currentMarker) {
         map.removeLayer(currentMarker);
       }
 
       currentMarker = L.marker([lat, lng]).addTo(map);
-      //currentMarker.bindPopup('<?php echo $nombre?>' + nombre).openPopup();
+      currentMarker.bindPopup('<?php echo $nombre?>' + nombre).openPopup();
       map.flyTo([lat, lng], 15);
     }
   </script>

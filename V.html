@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8" />
+    <title>Visor de Leaflet con edición de base de datos</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.7.1/leaflet.css" />
+    <style>
+        #map {
+            height: 400px;
+        }
+    </style>
+</head>
+<body>
+    <div id="map"></div>
+
+    <form id="editForm" method="POST" action="bdg/editar.php">
+        <label for="id">Id:</label>
+        <input type="text" id="id" name="id">
+        <label for="nombre">Nombre:</label>
+        <input type="text" id="nombre" name="nombre" required>
+        <label for="tipo">tipo:</label>
+        <textarea id="tipo" name="tipo" required></textarea>
+        <button type="submit">Guardar</button>
+    </form>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.7.1/leaflet.js"></script>
+    <script>
+        var map = L.map('map').setView([51.505, -0.09], 13);
+
+        L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+            attribution: 'Map data &copy; OpenStreetMap contributors'
+        }).addTo(map);
+
+        var markers = [];
+
+        // Función para crear los marcadores y asociar el evento de clic
+        function createMarker(lat, lng, nombre, tipo) {
+            var marker = L.marker([lat, lng]);
+
+            marker.on('click', function () {
+                document.getElementById('id').value = marker.options.id;
+                document.getElementById('nombre').value = nombre;
+                document.getElementById('tipo').value = tipo;
+
+                // Mostrar el formulario de edición
+                document.getElementById('editForm').style.display = 'block';
+            });
+
+            markers.push(marker);
+            return marker;
+        }
+
+        // Resto del código JavaScript para obtener los datos de la base de datos y crear los marcadores...
+        // Función para crear los marcadores y asociar el evento de clic
+        function createMarker(lat, lng, nombre, tipo) {
+            var marker = L.marker([lat, lng]);
+
+            marker.on('click', function () {
+                document.getElementById('id').value = marker.options.id;
+                document.getElementById('nombre').value = nombre;
+                document.getElementById('tipo').value = tipo;
+
+                // Mostrar el formulario de edición
+                document.getElementById('editForm').style.display = 'block';
+            });
+
+            markers.push(marker);
+            return marker;
+        }
+    </script>
+</body>
+</html>

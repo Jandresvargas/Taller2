@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html>
+<head>
+   <title>Editor de Registros Geoespaciales</title>
+   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.7.1/leaflet.css" />
+   <style>
+      #map {
+         height: 400px;
+      }
+   </style>
+</head>
+<body>
+   <div id="map"></div>
+   <form action="bdg/editar3.php" method="POST">
+      <input type="hidden" id="latitude" name="latitude">
+      <input type="hidden" id="longitude" name="longitude">
+      <label for="id">ID:</label>
+      <input id="id" name="id" required>
+      <label for="nombre">Nombre:</label>
+      <input id="nombre" name="nombre" required>
+      <label for="tipo">Nombre:</label>
+      <input id="tipo" name="tipo" required>
+      <input type="submit" value="Guardar">
+   </form>
+
+   <script src="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.7.1/leaflet.js"></script>
+   <script>
+      var map = L.map('map').setView([3.351602, -76.536017], 14);
+      L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+         attribution: 'Map data &copy; <a href="https://www.openstreetmap.org/">OpenStreetMap</a> contributors',
+         maxZoom: 18,
+      }).addTo(map);
+
+      var marker = L.marker([0, 0]).addTo(map);
+
+      map.on('click', function(e) {
+         var latitude = e.latlng.lat;
+         var longitude = e.latlng.lng;
+
+         marker.setLatLng([latitude, longitude]);
+         document.getElementById('latitude').value = latitude;
+         document.getElementById('longitude').value = longitude;
+      });
+   </script>
+</body>
+</html>
