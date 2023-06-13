@@ -144,12 +144,15 @@
                         $result=pg_query($conexion,$sql);
                         while($mostrar=pg_fetch_array($result)){
                         ?>
+                        <td> <?php echo $mostrar['nombre'] ?></td>
+                        }
                             <tr>
                             <th  scope="row"><?php echo $mostrar['id'] ?></th>
                             <td> <?php echo $mostrar['nombre'] ?></td>
                             <td><?php echo $mostrar['tipo'] ?> </td>
                             </tr>
                             <?php 
+                
                             }
                             ?>
                         </tbody>

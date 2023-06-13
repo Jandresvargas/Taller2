@@ -1,5 +1,5 @@
 <?php 
-	define("PG_DB"  , "t2_pruebas");
+	define("PG_DB"  , "t2p");
 	define("PG_HOST", "localhost");
 	define("PG_USER", "postgres");
 	define("PG_PSWD", "12345");
@@ -75,11 +75,11 @@
     <script>
         $(document).ready(function() {
             // Función para enviar la solicitud de eliminación del punto
-            function eliminarPunto(id) {
+            function eliminarPunto(id2) {
                 $.ajax({
                     url: 'bdg/eliminar.php',
                     type: 'POST',
-                    data: { id: id },
+                    data: { id: id2 },
                     success: function(response) {
                         alert(response);
                     },
@@ -91,8 +91,8 @@
 
             // Manejador de eventos para el botón de eliminación
             $('#btnEliminar').on('click', function() {
-                var id = $('#id').val();
-                eliminarPunto(id);
+                var id2 = $('#id2').val();
+                eliminarPunto(id2);
             });
         });
     </script>
@@ -233,8 +233,8 @@
                     <!-- Agrega la tabla dentro del panel -->
                     <div style="margin-top:20px;">
                     <h1>Eliminar Dato</h1>
-                        <label for="id">ID del Punto:</label>
-                        <input type="text" id="id" required>
+                        <label for="idlbl">ID del Punto:</label>
+                        <input type="text" id="id2" required>
                         <button id="btnEliminar">Eliminar</button>
 
                 </div>
