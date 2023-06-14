@@ -54,7 +54,15 @@
             height: 100%;
             font: 10pt "Helvetica Neue", Arial, Helvetica, sans-serif;
         }
-
+        .legend {
+            background-color: #e9eacb;
+            padding: 5px;
+            opacity: 0.8;
+            border: 10px;
+            height: 150px;
+            width: 200px;
+            position: 'bottomleft'
+            }
         .lorem {
             font-style: italic;
             text-align: justify;
@@ -67,8 +75,21 @@
             background-color: white;
             padding: 10px;
             border: 1px solid #ccc;
-            border-radius: 5px;
+            border-radius: 10px;
             z-index: 9999;
+        }
+        #norte{
+            position:fixed;
+            width:3.5%;
+            left: 8%;
+            padding: 0.5%;
+            }
+        label {
+            display: block;
+            font-weight: bold;
+            font-size: 12px;
+            color: #333;
+            margin-bottom: 10px;
         }
     </style>
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
@@ -246,19 +267,31 @@
                     <div style="margin-top:20px;">
                     <h1>Sitios de interes</h1>
                     <!-- formulario para agregar datos  -->
-                    <button id="startEditingBtn">Comenzar Edición</button>
+                    <button class="btn btn-primary" id="startEditingBtn">Comenzar Edición</button>
                     <form id="editForm" action="bdg/editar3.php" method="POST" style="display: none;">
-                        <input id="lat" name="lat">
-                        <input id="long" name="long">
-                        <label for="id">ID:</label>
-                        <input type="text" id="id" name="id" required>
-                        <label for="nombre">Nombre:</label>
-                        <input type="text" id="nombre" name="nombre" required>
-                        <label for="tipo">Nombre:</label>
-                        <input type="text" id="tipo" name="tipo" required>
-                        <input type="submit" value="Guardar">
-                        <button type="button" id="cancelEditingBtn">Cancelar</button>
-
+                        <fieldset>
+                            <br>
+                            <div class="form-group">
+                                <input type="hidden" id="lat" name="lat">
+                                <input type="hidden" id="long" name="long">
+                            </div>
+                            <div class="form-group">
+                                <label for="id">ID:</label>
+                                <input type="text" class="form-control" id="id" name="id" placeholder="Identificador" required>
+                            </div>
+                            <div class="form-group">
+                                <label for="nombre">Nombre:</label>
+                                <input type="text" class="form-control" id="nombre" name="nombre" placeholder="Nombre de establecimiento" required>
+                            </div>
+                            <div class="form-group">
+                                <label for="tipo">Tipo:</label>
+                                <input type="text" class="form-control" id="tipo" name="tipo" placeholder="Tipo de establecimiento" required>
+                            </div>
+                            <div class="form-group">
+                                <input type="submit" class="btn btn-success" value="Guardar">
+                                <button type="button" class="btn btn-danger" id="cancelEditingBtn">Cancelar</button>
+                            </div>
+                        </fieldset>
                     </form>
 
                     <br>
@@ -267,7 +300,7 @@
             <!-- AGREGAR Y ELIMINAR -->
             <div class="leaflet-sidebar-pane" id="eliminar">
                 <h1 class="leaflet-sidebar-header">
-                    Agregar o eliminar
+                    Eliminar
                     <span class="leaflet-sidebar-close"><i class="fa fa-caret-left"></i></span>
                 </h1>
                 <p>
@@ -277,16 +310,18 @@
                     <div style="margin-top:20px;">
                     <h1>Eliminar Dato</h1>
                         <label for="idlbl">ID del Punto:</label>
-                        <input type="text" id="id2" required>
-                        <button id="btnEliminar">Eliminar</button>
+                        <input type="text" class="form-control" id="id2" required>
+                        <br>
+                        <button class="btn btn-danger" id="btnEliminar">Eliminar</button>
 
                 </div>
             </div>
 
 
             <div class="leaflet-sidebar-pane" id="agregar">
-                <h1 class="leaflet-sidebar-header">Messages<span class="leaflet-sidebar-close"><i class="fa fa-caret-left"></i></span></h1>
-                <button id="btnAgregarDatos">Agregar Datos</button>
+
+                <h1 class="leaflet-sidebar-header">Agregar datos<span class="leaflet-sidebar-close"><i class="fa fa-caret-left"></i></span></h1>
+                <button class="btn btn-primary" id="btnAgregarDatos">Agregar Datos</button>
             </div>
         </div>
     </div>
@@ -294,33 +329,132 @@
     <div id="form">
         <h3>Agregar Punto</h3>
         <form id="pointForm" method="POST" action="bdg/agregar.php">
-            <input type="text" id="id" name="id" placeholder="Identificación" required>
-            <input type="text" id="nombre" name="nombre" placeholder="Nombre" required>
-            <input type="text" id="tipo"  name="tipo" placeholder="Tipo" required>
+            <input class="form-control" type="text" id="id" name="id" placeholder="Identificación" required>
+            <input class="form-control" type="text" id="nombre" name="nombre" placeholder="Nombre" required>
+            <input class="form-control" type="text" id="tipo"  name="tipo" placeholder="Tipo" required>
             <br>
-            <label for="id">Latitud:</label>
-            <input type="text" id="latitude" name="latitude" placeholder="Latitud" readonly>
-            <label for="id">Longitud:</label>
-            <input type="text" id="longitude" name="longitude" placeholder="Longitud" readonly>
+            <h4>Localización</h4>
+            <input class="form-control" type="text" id="latitude" name="latitude" placeholder="Latitud" readonly>
+            <input class="form-control" type="text" id="longitude" name="longitude" placeholder="Longitud" readonly>
 
-            <button type="submit">Guardar</button>
-            <button type="button" onclick="cancelForm()">Cancelar</button>
+            <button class="btn btn-success" type="submit">Guardar</button>
+            <button class="btn btn-danger" type="button" onclick="cancelForm()">Cancelar</button>
         </form>
     </div>
 
-    <div id="map"></div>
+    <div id="map"style="z-index:0">
+        <img id="norte" src="img/norte2.png" style="z-index:9999">
+    </div>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.7.1/leaflet.js"></script>
     <script src="sidebar/js/leaflet-sidebar.js"></script>
-    
+    <link rel="stylesheet" href="Leaflet-MiniMap-master/Control.MiniMap.css" />
+    <script src="Leaflet-MiniMap-master/Control.MiniMap.js" type="text/javascript"></script>
+
+
 
     <script>
         // standard leaflet map setup
         var map = L.map('map');
         map.setView([3.351602, -76.536017], 14);
-        L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
-            maxZoom: 18,
-            attribution: 'Map data &copy; OpenStreetMap contributors'
+        var OpenStreetMap = L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+                maxZoom: 18,
+                attribution: 'Map data &copy; OpenStreetMap contributors'
+            }).addTo(map);
+        ///Mapa base 2
+	    var Memomaps = L.tileLayer('https://tileserver.memomaps.de/tilegen/{z}/{x}/{y}.png', 
+        /// https://{s}.tile.openstreetmap.fr/hot/{z}/{x}/{y}.png
+                {
+            minZoom:13,
+            maxZoom: 16
+		});
+
+        var leyenda = L.control.layers({OpenStreetMap,Memomaps}).addTo(map);
+
+        var miniMap = new L.Control.MiniMap(L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png'), {
+            toggleDisplay: true,
+            minimized: false,
+            position: "bottomleft",
+            width: 200,
+            height: 200,
+            strings: {hideText: 'Ocultar MiniMapa', showText: 'Mostrar MiniMapa'}
         }).addTo(map);
+
+
+        var comunas = L.tileLayer.wms('http://ws-idesc.cali.gov.co:8081/geoserver/wfs?',
+            {
+            layers: 'idesc:mc_comunas',
+            format: 'image/png',
+            transparent: true,
+            CQL_FILTER: "nombre='Comuna 22'",
+            });
+
+        var barrios = L.tileLayer.wms('http://ws-idesc.cali.gov.co:8081/geoserver/wfs?',
+            {
+            layers: 'idesc:mc_barrios',
+            format: 'image/png',
+            transparent: true,
+            CQL_FILTER: "comuna='22'",
+            tms: true
+            });
+
+            // POP UP de puntos 
+        
+        function info_popup(feature, layer){
+            layer.bindPopup("<h1>" + feature.properties.nombre + "</h1><hr>"+"<strong> Identificación: </strong>"+feature.properties.id+"<br/>"+"<strong> Tipo: </strong>"+feature.properties.tipo+"<br/>");
+        }
+        //carga la capa como geojson desde la gdb
+        var sitios_interes = L.geoJSON();
+            $.post("bdg/cargar.php",
+                {
+                    peticion: 'cargar',
+                },function (data, status, feature)
+                {
+                if(status=='success')
+                {
+                    sitios_interes = eval('('+data+')');
+                    var sitios_interes = L.geoJSON(sitios_interes, {
+                onEachFeature: info_popup
+                    });
+                    
+                    sitios_interes.eachLayer(function (layer) {
+                    layer.setZIndexOffset(1000);
+                    });
+            leyenda.addOverlay(sitios_interes, 'Sitios de interes');
+                }
+            });
+
+
+
+
+
+
+
+             /// Leyenda
+            var legend = L.control({position: "bottomright"});
+            legend.onAdd = function(map) {
+            var div = L.DomUtil.create("div", "legend");
+            div.innerHTML = 
+            '<h><b>Comuna 22</b></h>' +
+            '<li id="legend-coordinates"></li>' +
+            '</ul></p>' +
+            'Andrés Vargas <br>' +
+            'SIG WEB <br>' +
+            '<img src="img/logovalle.png" style="width:90%">';
+            return div;
+            };
+
+
+
+        legend.addTo(map)
+        leyenda.addOverlay(comunas, 'Comuna 22');
+        leyenda.addOverlay(barrios, 'Barrios y sectores');
+        /// Funcion para poner las coordenadas del puntero en la leyenda
+        function updateLegendCoordinates(e) {
+            var legendCoordinates = document.getElementById('legend-coordinates');
+            legendCoordinates.innerHTML = '<strong>Lat: </strong> ' + e.latlng.lat.toFixed(3) + '<strong>  Long:</strong> ' + e.latlng.lng.toFixed(3);
+            }
+        map.on('mousemove', updateLegendCoordinates);
+
         var marker = L.marker([0, 0]).addTo(map);
         var editingEnabled = false;
 
@@ -437,16 +571,7 @@
                 
             })
 
-        // be notified when a panel is opened
-        sidebar.on('content', function (ev) {
-            switch (ev.id) {
-                case 'autopan':
-                sidebar.options.autopan = true;
-                break;
-                default:
-                sidebar.options.autopan = false;
-            }
-        });
+
 
         var userid = 0
         function addUser() {

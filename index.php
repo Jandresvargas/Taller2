@@ -104,7 +104,7 @@
         <link rel="stylesheet" href="Leaflet-MiniMap-master/Control.MiniMap.css" />
         <script src="Leaflet-MiniMap-master/Control.MiniMap.js" type="text/javascript"></script>
         <script src="js/minimap.js" type="text/javascript"></script>
-
+        
         <script>
             /// Leyenda
             var legend = L.control({position: "bottomright"});
@@ -121,7 +121,9 @@
             };
 
             //// Boton de reseteo de Zoom 
-
+            var miniMap = new L.Control.MiniMap(L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png'), {
+              toggleDisplay: true,
+            }).addTo(map);
             var resetButton = L.easyButton({
             position:  'topright',
             states: [{
