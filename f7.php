@@ -18,15 +18,15 @@
     <title>Sitios de interes</title>
 
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <!--BOOTSTRAP-->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-KK94CHFLLe+nY2dmCWGMq91rCGa5gtU4mk92HdvYe+M/SXH301p5ILy+dN9+nJOZ" crossorigin="anonymous">
-
+    <!--FONT-AWESOME-->
     <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.1.0/css/font-awesome.min.css" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.7.1/leaflet.css" />
-    <!--[if lte IE 8]><link rel="stylesheet" href="https://unpkg.com/leaflet@0.7.2/dist/leaflet.ie.css" /><![endif]-->
-
+    <!--SIDEBAR-->
     <link rel="stylesheet" href="sidebar/css/leaflet-sidebar.css" />
 
-
+    
     <style>
         #map {
             height: 600px;
@@ -81,7 +81,7 @@
         #norte{
             position:fixed;
             width:3.5%;
-            left: 8%;
+            right: 12%;
             padding: 0.5%;
             }
         label {
@@ -93,6 +93,7 @@
         }
     </style>
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    
     <script>
         $(document).ready(function() {
             // Función para enviar la solicitud de eliminación del punto
@@ -341,7 +342,7 @@
             <button class="btn btn-danger" type="button" onclick="cancelForm()">Cancelar</button>
         </form>
     </div>
-
+    
     <div id="map"style="z-index:0">
         <img id="norte" src="img/norte2.png" style="z-index:9999">
     </div>
@@ -350,7 +351,15 @@
     <link rel="stylesheet" href="Leaflet-MiniMap-master/Control.MiniMap.css" />
     <script src="Leaflet-MiniMap-master/Control.MiniMap.js" type="text/javascript"></script>
 
-
+        <!-- Easy Button -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Leaflet.EasyButton/2.4.0/easy-button.js"></script>
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/Leaflet.EasyButton/2.4.0/easy-button.css" />  
+        <!-- Localización  -->
+    <link rel="stylesheet" href="css/L.Control.Locate.css">
+    <script src="Location/L.Control.Locate.js"></script>
+        <!-- Geocodificador -->
+    <link rel="stylesheet" href="https://unpkg.com/leaflet-control-geocoder/dist/Control.Geocoder.css" />
+    <script src="https://unpkg.com/leaflet-control-geocoder/dist/Control.Geocoder.js"></script>
 
     <script>
         // standard leaflet map setup
@@ -378,7 +387,22 @@
             height: 200,
             strings: {hideText: 'Ocultar MiniMapa', showText: 'Mostrar MiniMapa'}
         }).addTo(map);
+        /// Boton para reiniciar zoom o visualizacion
+        var resetButton = L.easyButton({
+            position:  'topright',
+            states: [{
+                stateName: 'reset-view',
+                icon: '<img src="img/slide.png"  align="absmiddle" height="20px" >',
+                title: 'Reiniciar vista',
+                onClick: function(control) {
+                // Restablecer la vista del mapa a la posición inicial
+                map.setView([3.351602, -76.536017], 14);
+                }
+            }]
+            }).addTo(map);
 
+            // Agregar el botón al mapa
+            resetButton.addTo(map);
 
         var comunas = L.tileLayer.wms('http://ws-idesc.cali.gov.co:8081/geoserver/wfs?',
             {
@@ -434,17 +458,17 @@
             legend.onAdd = function(map) {
             var div = L.DomUtil.create("div", "legend");
             div.innerHTML = 
-            '<h><b>Comuna 22</b></h>' +
-            '<li id="legend-coordinates"></li>' +
-            '</ul></p>' +
-            'Andrés Vargas <br>' +
-            'SIG WEB <br>' +
-            '<img src="img/logovalle.png" style="width:90%">';
-            return div;
+                '<h><b>Comuna 22</b></h>' +
+                '<li id="legend-coordinates"></li>' +
+                '</ul></p>' +
+                'Andrés Vargas <br>' +
+                'SIG WEB <br>' +
+                '<img src="img/logovalle.png" style="width:90%">';
+                return div;
             };
 
 
-
+        L.Control.geocoder().addTo(map);
         legend.addTo(map)
         leyenda.addOverlay(comunas, 'Comuna 22');
         leyenda.addOverlay(barrios, 'Barrios y sectores');
@@ -491,7 +515,7 @@
 
             currentMarker = L.marker([lat, lng]).addTo(map);
             //currentMarker.bindPopup('<?php echo $nombre?>' + nombre).openPopup();
-            map.flyTo([lat, lng], 15);
+            map.flyTo([lat, lng], 18);
             }
 
 
@@ -570,18 +594,13 @@
                 title: 'Agregar registro',
                 
             })
+            lc = L.control.locate({
+                    strings: {
+                    title: "Mostrar mi ubicación"
+                    }
+                }).addTo(map);
 
 
-
-        var userid = 0
-        function addUser() {
-            sidebar.addPanel({
-                id:   'user' + userid++,
-                tab:  '<i class="fa fa-user"></i>',
-                title: 'User Profile ' + userid,
-                pane: '<p>user ipsum dolor sit amet</p>',
-            });
-        }
         
     </script>
 </body>

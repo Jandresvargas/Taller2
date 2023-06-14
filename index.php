@@ -38,7 +38,7 @@
     <script src="https://leaflet.github.io/Leaflet.heat/dist/leaflet-heat.js"></script>
     <!-- Easy Button -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/Leaflet.EasyButton/2.4.0/easy-button.js"></script>
-	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/Leaflet.EasyButton/2.4.0/easy-button.css" />    
+	  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/Leaflet.EasyButton/2.4.0/easy-button.css" />    
 
     <!-- Localización  -->
     <link rel="stylesheet" href="css/L.Control.Locate.css">
@@ -150,13 +150,13 @@
                 {start: 16, end: 17, interval: 0.01}
             ]});
         // Crear un botón de visualizar reticula con Leaflet.EasyButton
-            var graticuleButton = L.easyButton('<img src="img/grilla.png"  align="absmiddle" height="16px" >', function(){
-                if (map.hasLayer(graticule)) {
-                    map.removeLayer(graticule);
-                } else {
-                    graticule.addTo(map);
-                }
-                }, 'Reticula').addTo(map);
+          var graticuleButton = L.easyButton('<img src="img/grilla.png"  align="absmiddle" height="16px" >', function(){
+              if (map.hasLayer(graticule)) {
+                  map.removeLayer(graticule);
+              } else {
+                  graticule.addTo(map);
+              }
+              }, 'Reticula').addTo(map);
 
         L.control.scale().addTo(map);
         L.Control.geocoder().addTo(map);
