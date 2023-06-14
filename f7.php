@@ -246,36 +246,21 @@
                     <div style="margin-top:20px;">
                     <h1>Sitios de interes</h1>
                     <!-- formulario para agregar datos  -->
-                    
-                    <form action="bdg/editar.php" method="POST" style="width: 100%; margin: 0 auto;">
-                        <fieldset>
-                            <legend class="text-center text-success"> Datos del sitio </legend>
-                            <div class="form-group">
-                                <label for="id">Id     </label> <!-- Nombre  -->
-                                <input type="text" class="form-control" name="id">
-                            </div>
-                            <div class="form-group">
-                                <label for="nombre">Nombre</label> <!-- email  -->
-                                <input type="text" class="form-control" name="nombre">
-                            </div>
+                    <button id="startEditingBtn">Comenzar Edición</button>
+                    <form id="editForm" action="bdg/editar3.php" method="POST" style="display: none;">
+                        <input id="lat" name="lat">
+                        <input id="long" name="long">
+                        <label for="id">ID:</label>
+                        <input type="text" id="id" name="id" required>
+                        <label for="nombre">Nombre:</label>
+                        <input type="text" id="nombre" name="nombre" required>
+                        <label for="tipo">Nombre:</label>
+                        <input type="text" id="tipo" name="tipo" required>
+                        <input type="submit" value="Guardar">
+                        <button type="button" id="cancelEditingBtn">Cancelar</button>
 
-                            <div class="form-group">
-                                <label for="tipo">Tipo</label> <!-- telefono  -->
-                                <input type="text" class="form-control" name="tipo">
-                            </div>
-                            <div class="form-group">
-                                <label for="lat">Latitud</label> <!-- telefono  -->
-                                <input type="text" class="form-control" name="lat">
-                            </div>
-                            <div class="form-group">
-                                <label for="long">Longitud</label> <!-- telefono  -->
-                                <input type="text" class="form-control" name="long">
-                            </div>
-                            <div>
-                                <input type="submit" class="btn btn-success form-control" name="guardar">
-                            </div>
-                        </fieldset>
                     </form>
+
                     <br>
                 </div>
             </div>
@@ -336,12 +321,32 @@
             maxZoom: 18,
             attribution: 'Map data &copy; OpenStreetMap contributors'
         }).addTo(map);
+        var marker = L.marker([0, 0]).addTo(map);
+        var editingEnabled = false;
 
         var currentMarker;
             // Agregar los marcadores al mapa
         var markersLayer = L.layerGroup([<?php echo implode(',', $markers); ?>]);
         markersLayer.addTo(map).bindPopup('nombre');
 
+        map.on('click', function(e) {
+         if (editingEnabled) {
+            var lat = e.latlng.lat;
+            var long = e.latlng.lng;
+
+            marker.setLatLng([lat, long]);
+            document.getElementById('lat').value = lat;
+            document.getElementById('long').value = long;
+         }
+        });
+        document.getElementById('startEditingBtn').addEventListener('click', function() {
+         editingEnabled = true;
+         document.getElementById('editForm').style.display = 'block';
+        });
+        document.getElementById('cancelEditingBtn').addEventListener('click', function() {
+            editingEnabled = false;
+            document.getElementById('editForm').style.display = 'none';
+        });
 
 
 

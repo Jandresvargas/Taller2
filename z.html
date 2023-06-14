@@ -14,8 +14,8 @@
    <div id="map"></div>
    <button id="startEditingBtn">Comenzar Edición</button>
    <form id="editForm" action="bdg/editar3.php" method="POST" style="display: none;">
-      <input type="hidden" id="latitude" name="latitude">
-      <input type="hidden" id="longitude" name="longitude">
+      <input id="lat" name="lat">
+      <input id="long" name="long">
       <label for="id">ID:</label>
       <input type="text" id="id" name="id" required>
       <label for="nombre">Nombre:</label>
@@ -40,12 +40,12 @@
 
       map.on('click', function(e) {
          if (editingEnabled) {
-            var latitude = e.latlng.lat;
-            var longitude = e.latlng.lng;
+            var lat = e.latlng.lat;
+            var long = e.latlng.lng;
 
-            marker.setLatLng([latitude, longitude]);
-            document.getElementById('latitude').value = latitude;
-            document.getElementById('longitude').value = longitude;
+            marker.setLatLng([lat, long]);
+            document.getElementById('lat').value = lat;
+            document.getElementById('long').value = long;
          }
       });
 
