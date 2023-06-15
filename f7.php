@@ -1,3 +1,4 @@
+
 <?php 
 	define("PG_DB"  , "t2p");
 	define("PG_HOST", "localhost");
@@ -50,9 +51,14 @@
         #form button {
             margin-top: 10px;
         }
-        html, body, #map {
+        html, #map {
             height: 100%;
             font: 10pt "Helvetica Neue", Arial, Helvetica, sans-serif;
+        }
+        body {
+            height: 100%;
+            display: block;
+            padding: 8px;
         }
         .legend {
             background-color: #e9eacb;
@@ -121,6 +127,7 @@
 
 </head>
 <body>
+    
     <!-- optionally define the sidebar content via HTML markup -->
     <div id="sidebar" class="leaflet-sidebar collapsed">
         <!-- nav tabs -->
@@ -342,6 +349,7 @@
             <button class="btn btn-danger" type="button" onclick="cancelForm()">Cancelar</button>
         </form>
     </div>
+    
     
     <div id="map"style="z-index:0">
         <img id="norte" src="img/norte2.png" style="z-index:9999">
