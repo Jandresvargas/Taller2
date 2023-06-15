@@ -25,7 +25,7 @@
 
     <!-- plugin jquery -->
 	  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.js"></script>  
-	
+
     <script src="https://unpkg.com/leaflet@1.0.2/dist/leaflet.js"></script>
 
 
@@ -94,7 +94,6 @@
           </nav>
         </header>
     <div class="cajon rounded">
-      
         <div id="map" style="z-index:0">
             <img id="norte" src="img/norte2.png" style="z-index:9999">
             
