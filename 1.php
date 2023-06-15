@@ -63,7 +63,7 @@
 <body>
      <!------------------------------------------ Encabezado ----------------------------------------------------->
      <header>
-        <nav class="navbar bg-body-tertiary fixed-top">
+        <nav class="navbar bg-light fixed-top">
             <div class="container-fluid">
                 <span class="badge bg-secondary">Sitios de interés</span>
                 <a class="navbar-brand">Comuna 22</a>

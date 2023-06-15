@@ -24,6 +24,8 @@ html{
 
 }
 body {
+	background-image: url('img/princfondo.JPG');
+	background-size: auto;
 	align-items: center;
 	display: flex;
 	height: 100vh;
