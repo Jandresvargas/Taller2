@@ -1,23 +1,17 @@
 <?php
 	//configuracion de la conexion a la gdb
-	
 	include('conect.php');
-
 	session_start();
-
 	if(!isset($_POST['peticion']))
 	{
 		$_POST['peticion'] = "peticion";
 	}
-
 	if(!isset($_POST['parametros']))
 	{
 		$_POST['parametros'] = 'parametros';
 	}
-
 	$peticion = $_POST['peticion'];
 	$parametros = $_POST['parametros'];
-
 	switch($peticion)
 	{
 		case 'cargar':

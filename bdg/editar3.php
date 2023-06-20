@@ -16,15 +16,12 @@ if (!$conn) {
    echo "Error al conectar a la base de datos.";
    exit;
 }
-
 $query = "UPDATE sitios_interes SET nombre='$nombre',tipo='$tipo', geom=ST_SetSRID(ST_MakePoint($long, $lat), 4326) WHERE id='$id'";
 $result = pg_query($conn, $query);
 if (!$result) {
    echo "<script>alert('Error al actualizar el registro.');</script>";
    exit;
 }
-
-echo "<script>alert('Actualización exitosa.'); window.location.href = '../f5.php'</script>";
-
+echo "<script>alert('Actualización exitosa.'); window.location.href = '../index.php'</script>";
 pg_close($conn);
 ?>

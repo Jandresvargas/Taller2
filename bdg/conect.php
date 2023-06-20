@@ -1,7 +1,7 @@
 <?php
  #Archivo de configuracion de la base de datos
  
-    define("PG_DB"  , "t2_pruebas");
+    define("PG_DB"  , "t2p");
 	define("PG_HOST", "localhost");
 	define("PG_USER", "postgres");
 	define("PG_PSWD", "12345");
